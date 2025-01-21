@@ -1,0 +1,114 @@
+class Player {
+    constructor(game, x, y, speedX, speedY, color){
+        this.game = game;
+        //x and y is the position of the player.
+        this.x = x;
+        this.y = y;
+        this.speedX = speedX;
+        this.speedY = speedY;
+        this.color = color;
+        this.width = this.game.cellSize;
+        this.height = this.game.cellSize;
+        this.moving = true;
+    }
+
+    update(){
+        //boundaries of the game area.
+        if (this.x <= 0 && this.speedX < 0 || 
+            this.x >= this.game.columns - 1 && this.speedX > 0 ||
+            this.y <= 0 && this.speedY < 0 ||
+            this.y >= this.game.rows - 1 && this.speedY > 0
+            ){
+            this.moving = false;
+        }
+
+        if(this.moving){
+            this.x += this.speedX;
+            this.y += this.speedY;
+        }
+        
+    }
+
+    draw(){
+        this.game.ctx.fillStyle = this.color;
+        //Move player cellsize to cellsize.
+        this.game.ctx.fillRect(this.x * this.game.cellSize, this.y * this.game.cellSize, this.width, this.height);
+    }
+    turnUp(){
+        this.speedX = 0;
+        this.speedY = -1;
+        this.moving = true;
+    }
+    turnDown(){
+        this.speedX = 0;
+        this.speedY = 1;
+        this.moving = true;
+    }
+    turnLeft(){
+        this.speedX = -1;
+        this.speedY = 0;
+        this.moving = true;
+    }
+    turnRight(){
+        this.speedX = 1;
+        this.speedY = 0;
+        this.moving = true;
+    }
+}
+
+class Keyboard1 extends Player{
+    constructor(game, x, y, speedX, speedY, color){
+        super(game, x, y, speedX, speedY, color);
+
+        window.addEventListener('keydown', e => {
+            if(e.key === 'ArrowRight') this.turnRight();
+            else if(e.key === 'ArrowLeft') this.turnLeft();
+            else if(e.key === 'ArrowUp') this.turnUp();
+            else if(e.key === 'ArrowDown') this.turnDown();
+        });
+    }
+}
+
+class Keyboard2 extends Player{
+    constructor(game, x, y, speedX, speedY, color){
+        super(game, x, y, speedX, speedY, color);
+
+        window.addEventListener('keydown', e => {
+            if(e.key.toLowerCase() === 'd') this.turnRight();
+            else if(e.key.toLowerCase() === 'a') this.turnLeft();
+            else if(e.key.toLowerCase() === 'w') this.turnUp();
+            else if(e.key.toLowerCase() === 's') this.turnDown();
+        });
+    }
+}
+
+class ComputerAi extends Player{
+    constructor(game, x, y, speedX, speedY, color){
+        super(game, x, y, speedX, speedY, color);
+        //counter for randomly changing the direction of the computer player.
+        this.turnTimer = 0;
+        //counts steps before changing direction.
+        this.turnInterval = 5;
+
+    }
+
+    update(){
+        super.update();
+        //Blind AI: Have a timer and randomly change the direction of the computer player.
+        if(this.turnTimer < this.turnInterval){
+            this.turnTimer++;
+        }else{
+            this.turnTimer = 0;
+            this.turnDown();
+        }
+    }
+    //pick a random direction and move the computer player in that direction.
+    turn(){
+        //it will consider the direction of the player then decide.
+        if(this.speedY){
+            Math.random() < 0.5 ? this.turnUp() : this.turnDown();
+        }else if (this.speedX){
+            Math.random() < 0.5 ? this.turnLeft() : this.turnRight();
+        }
+    }
+}
