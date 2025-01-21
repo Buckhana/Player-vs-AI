@@ -98,7 +98,7 @@ class ComputerAi extends Player{
             this.turnTimer += 1;
         }else{
             this.turnTimer = 0;
-            this.turnDown();
+            this.turn();
             this.turnInterval = Math.floor(Math.random() * this.game.columns + 1);
         }
     }
