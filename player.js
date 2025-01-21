@@ -88,26 +88,26 @@ class ComputerAi extends Player{
         //counter for randomly changing the direction of the computer player.
         this.turnTimer = 0;
         //counts steps before changing direction.
-        this.turnInterval = 5;
-
+        this.turnInterval = Math.floor(Math.random() * this.game.columns + 1);
     }
 
     update(){
         super.update();
         //Blind AI: Have a timer and randomly change the direction of the computer player.
         if(this.turnTimer < this.turnInterval){
-            this.turnTimer++;
+            this.turnTimer += 1;
         }else{
             this.turnTimer = 0;
             this.turnDown();
+            this.turnInterval = Math.floor(Math.random() * this.game.columns + 1);
         }
     }
     //pick a random direction and move the computer player in that direction.
     turn(){
         //it will consider the direction of the player then decide.
-        if(this.speedY){
+        if(this.speedY === 0){
             Math.random() < 0.5 ? this.turnUp() : this.turnDown();
-        }else if (this.speedX){
+        }else if (this.speedX === 0){
             Math.random() < 0.5 ? this.turnLeft() : this.turnRight();
         }
     }
