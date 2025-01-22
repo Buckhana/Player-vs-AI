@@ -38,6 +38,8 @@ class Game {
         this.canvas.width = width - width % this.cellSize;
         this.canvas.height = height - height % this.cellSize;
         this.ctx.fillStyle = 'blue';
+        this.ctx.font = '30px Arial';
+        this.ctx.textBaseline = 'top';
         this.width = this.canvas.width;
         this.height = this.canvas.height;
         this.columns = Math.floor(this.width / this.cellSize);
@@ -51,9 +53,12 @@ class Game {
 
     }
 
-    //scoreboard
+    //Scoreboard
     drawStatusText(){
-        this.ctx.fillStyle = 'black';
+        this.ctx.fillText('P1 Score: ' + this.player1.score, this.cellSize, this.cellSize);
+        this.ctx.fillText('P2 Score: ' + this.player2.score, this.cellSize, this.cellSize * 2);
+        this.ctx.fillText('P3 Score: ' + this.player3.score, this.cellSize, this.cellSize * 3);
+        this.ctx.fillText('P4 Score: ' + this.player4.score, this.cellSize, this.cellSize * 4);   
     }
 
     checkCollision(a, b){
@@ -92,6 +97,7 @@ class Game {
                 object.draw()
                 object.update()
             });
+            this.drawStatusText();
         }
     }
     
