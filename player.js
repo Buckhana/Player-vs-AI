@@ -13,9 +13,14 @@ class Player {
         this.score = 0;
         this.length = 2;
         this.segments = [];
+        //player can only turn onces per frame.
+        this.readyToTurn = true;
     }
 
     update(){
+        //flag when the player is ready to move.
+        this.readyToTurn = true;
+
         //check collision with the food.
         if(this.game.checkCollision(this, this.game.food)){
             this.game.food.reset();
@@ -46,6 +51,7 @@ class Player {
     }
 
     draw(){
+        //draw the player and its body segments.
         this.segments.forEach((segment, i) => {
             if (i === 0) this.game.ctx.fillStyle = 'teal';
             else this.game.ctx.fillStyle = this.color;
@@ -54,24 +60,40 @@ class Player {
         });
     }
     turnUp(){
-        this.speedX = 0;
-        this.speedY = -1;
-        this.moving = true;
+        //if the player is moving horizontally, then it can turn up.
+        if(this.speedY === 0 && this.readyToTurn) {
+            this.speedX = 0;
+            this.speedY = -1;
+            this.moving = true;
+            this.readyToTurn = false;
+        }
     }
     turnDown(){
-        this.speedX = 0;
-        this.speedY = 1;
-        this.moving = true;
+        //if the player is moving horizontally, then it can turn down.
+        if(this.speedY === 0 && this.readyToTurn) {
+            this.speedX = 0;
+            this.speedY = 1;
+            this.moving = true;
+            this.readyToTurn = false;
+        }
     }
     turnLeft(){
-        this.speedX = -1;
-        this.speedY = 0;
-        this.moving = true;
+        //if the player is moving vertically, then it can turn left.
+        if(this.speedX === 0 && this.readyToTurn) {
+            this.speedX = -1;
+            this.speedY = 0;
+            this.moving = true;
+            this.readyToTurn = false
+        }
     }
     turnRight(){
-        this.speedX = 1;
-        this.speedY = 0;
-        this.moving = true;
+        //if the player is moving vertically, then it can turn right.
+        if(this.speedX === 0 && this.readyToTurn) {
+            this.speedX = 1;
+            this.speedY = 0;
+            this.moving = true;
+            this.readyToTurn = false;
+        }
     }
 }
 
