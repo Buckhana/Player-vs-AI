@@ -12,3 +12,46 @@
     max-height: 100%;
     max-width: 1500;
 }
+
+#controls {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    translate: -50% 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    font: 15px corbel;
+}
+
+#buttons {
+    width: 260px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#buttons button {
+    padding: 10px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    font: 15px corbel;
+}
+
+#scoreScreen {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 25px;
+}
+
+#playerChoice {
+    padding: 5px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.playerLabel {
+    font: 20px corbel;
+    margin-top: 10px;
+}

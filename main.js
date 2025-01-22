@@ -44,21 +44,13 @@ class Game {
         this.height = this.canvas.height;
         this.columns = Math.floor(this.width / this.cellSize);
         this.rows = Math.floor(this.height / this.cellSize);
-        this.player1 = new Keyboard2(this, 0, 0, 1, 0, 'blue');
-        this.player2 = new ComputerAi(this, this.columns - 1, 0, 0, 1, 'red');
-        this.player3 = new ComputerAi(this, this.columns -1, this.rows - 1, -1, 0, 'yellow');
-        this.player4 = new ComputerAi(this, 0, this.rows - 1, 0, -1, 'purple');
+        this.player1 = new Keyboard2(this, 0, 0, 1, 0, 'blue', 'Player 1');
+        this.player2 = new ComputerAi(this, this.columns - 1, 0, 0, 1, 'red', 'Player 2');
+        this.player3 = new ComputerAi(this, this.columns -1, this.rows - 1, -1, 0, 'yellow', 'Player 3');
+        this.player4 = new ComputerAi(this, 0, this.rows - 1, 0, -1, 'purple', 'Player 4');
         this.food = new Food(this);
         this.gameObjects = [this.player1, this.player2, this.player3, this.player4, this.food];
-
-    }
-
-    //Scoreboard
-    drawStatusText(){
-        this.ctx.fillText('P1 Score: ' + this.player1.score, this.cellSize, this.cellSize);
-        this.ctx.fillText('P2 Score: ' + this.player2.score, this.cellSize, this.cellSize * 2);
-        this.ctx.fillText('P3 Score: ' + this.player3.score, this.cellSize, this.cellSize * 3);
-        this.ctx.fillText('P4 Score: ' + this.player4.score, this.cellSize, this.cellSize * 4);   
+        this.gameUi = new Ui(this);
     }
 
     checkCollision(a, b){
@@ -97,8 +89,8 @@ class Game {
                 object.draw()
                 object.update()
             });
-            this.drawStatusText();
         }
+        this.gameUi.update();
     }
     
 }
