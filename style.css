@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background: black;
+}
 #canvas1 {
     position: absolute;
     top: 50%;
@@ -47,11 +50,14 @@
 
 #playerChoice {
     padding: 5px 5px;
-    display: flex;
     justify-content: space-between;
 }
 
 .playerLabel {
     font: 20px corbel;
     margin-top: 10px;
+}
+
+.assets{
+    display: none;
 }

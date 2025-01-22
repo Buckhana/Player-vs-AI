@@ -11,6 +11,7 @@ class Game {
         this.cellSize = 50;
         this.columns;
         this.rows;
+        this.topMargin = 2;
 
         //repeat a periodic event every 200 milliseconds.
         this.eventTimer = 0;
@@ -22,6 +23,7 @@ class Game {
         this.player3;
         this.player4;
         this.food;
+        this.background;
         this.gameObjects;
 
         window.addEventListener('resize', e => {
@@ -44,6 +46,7 @@ class Game {
         this.height = this.canvas.height;
         this.columns = Math.floor(this.width / this.cellSize);
         this.rows = Math.floor(this.height / this.cellSize);
+        this.background = new Background(this);
         this.player1 = new Keyboard2(this, 0, 0, 1, 0, 'blue', 'Player 1');
         this.player2 = new ComputerAi(this, this.columns - 1, 0, 0, 1, 'red', 'Player 2');
         this.player3 = new ComputerAi(this, this.columns -1, this.rows - 1, -1, 0, 'yellow', 'Player 3');
@@ -83,6 +86,7 @@ class Game {
         this.handlePeriodicEvent(deltaTime);
         if(this.eventUpdate){
             this.ctx.clearRect(0, 0, this.width, this.height);
+            this.background.draw();
             this.drawGrid();
             //limit fps to the game so frame rate would be consistant for all devices. so draw player first then update. 
             this.gameObjects.forEach(object => {
