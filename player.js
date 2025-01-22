@@ -1,5 +1,5 @@
 class Player {
-    constructor(game, x, y, speedX, speedY, color){
+    constructor(game, x, y, speedX, speedY, color, name){
         this.game = game;
         //x and y is the position of the player.
         this.x = x;
@@ -11,10 +11,11 @@ class Player {
         this.height = this.game.cellSize;
         this.moving = true;
         this.score = 0;
-        this.length = 2;
+        this.length = 3;
         this.segments = [];
         //player can only turn onces per frame.
         this.readyToTurn = true;
+        this.name = name;
     }
 
     update(){
@@ -98,8 +99,8 @@ class Player {
 }
 
 class Keyboard1 extends Player{
-    constructor(game, x, y, speedX, speedY, color){
-        super(game, x, y, speedX, speedY, color);
+    constructor(game, x, y, speedX, speedY, color, name){
+        super(game, x, y, speedX, speedY, color, name);
 
         window.addEventListener('keydown', e => {
             if(e.key === 'ArrowRight') this.turnRight();
@@ -111,8 +112,8 @@ class Keyboard1 extends Player{
 }
 
 class Keyboard2 extends Player{
-    constructor(game, x, y, speedX, speedY, color){
-        super(game, x, y, speedX, speedY, color);
+    constructor(game, x, y, speedX, speedY, color, name ){
+        super(game, x, y, speedX, speedY, color, name);
 
         window.addEventListener('keydown', e => {
             if(e.key.toLowerCase() === 'd') this.turnRight();
@@ -124,8 +125,8 @@ class Keyboard2 extends Player{
 }
 
 class ComputerAi extends Player{
-    constructor(game, x, y, speedX, speedY, color){
-        super(game, x, y, speedX, speedY, color);
+    constructor(game, x, y, speedX, speedY, color, name){
+        super(game, x, y, speedX, speedY, color, name);
         //counter for randomly changing the direction of the computer player.
         this.turnTimer = 0;
         //counts steps before changing direction.
